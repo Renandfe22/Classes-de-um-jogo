@@ -1,8 +1,38 @@
-#dialog-container {
-    border: 1px solid #ccc;
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: black;
+}
+
+#dialog-text {
+    font-family: 'Courier New', monospace; /* Alterei para uma fonte monoespaçada */
+    text-align: left;
+    background-color: black;
+    border: 3px solid #ccc;
     padding: 10px;
-    margin: 10px;
-    max-width: 400px;
-    overflow-y: auto;
-    height: 200px;
+    color: #ff0000;
+    white-space: pre-line;
+}
+
+#dialog-text .typing {
+    border: 4px solid rgb(168, 2, 2); /* Adicionei uma borda à classe .typing para realçar o efeito de digitação */
+    color: white;
+    display: inline-block;
+}
+
+#dialog-text .typing::after {
+    content: '|';
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
 }

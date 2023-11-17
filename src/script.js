@@ -33,15 +33,49 @@ class Mago extends Heroi {
     }
 }
 
+function adicionarMensagem(mensagem) {
+    const dialogText = document.getElementById('dialog-text');
+    const mensagemElement = document.createElement('p');
+    mensagemElement.classList.add('typing');
+    dialogText.appendChild(mensagemElement);
+
+    let index = 0;
+
+    function type() {
+        if (index < mensagem.length) {
+            mensagemElement.innerHTML += mensagem.charAt(index);
+            index++;
+            setTimeout(type, Math.floor(Math.random() * 100) + 50);
+        } else {
+            // Após a conclusão da digitação, inicia o próximo texto
+            adicionarMensagemQueue.shift();
+            if (adicionarMensagemQueue.length > 0) {
+                setTimeout(() => type(adicionarMensagemQueue[0]), 500); // Aguarda 500ms antes de iniciar o próximo texto
+            }
+        }
+    }
+
+    type();
+}
+
+// Fila para controlar a ordem dos textos
+let adicionarMensagemQueue = [];
+
+function adicionarMensagemNaFila(mensagem) {
+    adicionarMensagemQueue.push(mensagem);
+
+    // Se não houver nenhum processo de digitação em andamento, inicia o próximo
+    if (adicionarMensagemQueue.length === 1) {
+        adicionarMensagem(mensagem);
+    }
+}
+
 let guerreiro = new Heroi("carniceiro", "47 anos", "Guerreiro", "espada");
 let magoBapsa = new Mago("bapsa", "75 anos", "magia");
 
-function adicionarMensagem(mensagem) {
-    const dialogContainer = document.getElementById('dialog-container');
-    const mensagemElement = document.createElement('p');
-    mensagemElement.textContent = mensagem;
-    dialogContainer.appendChild(mensagemElement);
-}
+adicionarMensagemNaFila("-");
+adicionarMensagemNaFila("-");
+adicionarMensagemNaFila("-");
 
 guerreiro.ataque(magoBapsa);
 magoBapsa.contraAtaque(guerreiro);
