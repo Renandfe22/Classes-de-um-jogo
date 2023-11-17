@@ -1,0 +1,8 @@
+#dialog-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    max-width: 400px;
+    overflow-y: auto;
+    height: 200px;
+}
